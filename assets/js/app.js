@@ -484,6 +484,57 @@
     }));
   }
 
+  /* ---------- 片段练习 ---------- */
+  function findFragment(id) {
+    for (const g of FRAGMENT_PRACTICES) {
+      const it = (g.items || []).find(x => x.id === id);
+      if (it) return it;
+    }
+    return null;
+  }
+
+  function initFragments() { renderFragments(); }
+
+  function renderFragments() {
+    const total = FRAGMENT_PRACTICES.reduce((n, g) => n + (g.items || []).length, 0);
+    $("#fragmentCount").textContent = total;
+
+    const blocks = FRAGMENT_PRACTICES.map(g => {
+      const body = (g.items || []).length
+        ? `<div class="past-grid">${g.items.map(it => `
+            <div class="past-card" data-fragment="${it.id}">
+              <div class="chip-row">
+                <span class="chip sub-${it.subject}">${it.subject}</span>
+                <span class="chip cat">${esc(g.label)}</span>
+              </div>
+              <h4>${esc(it.title)}</h4>
+              <div class="desc">${esc(it.task || "")}</div>
+              <div class="more">开始练习 →</div>
+            </div>`).join("")}</div>`
+        : `<div class="empty">该组片段待补充</div>`;
+      return `<div class="panel past-block">
+        <h3 class="panel-title">${esc(g.label)}</h3>
+        <p class="muted frag-desc">${esc(g.desc || "")}</p>${body}</div>`;
+    }).join("");
+
+    $("#fragmentView").innerHTML = `
+      <div class="panel past-note">
+        <p>把整篇写作拆成可单独训练的小片段，逐个突破开头、论据、过渡与结尾；点击任一任务即可带入「提交批改」。</p>
+        <p class="muted">片段练习不必写完整篇，聚焦一个目标写透即可。</p>
+      </div>` + blocks;
+
+    $$("#fragmentView .past-card").forEach(card => card.addEventListener("click", () => {
+      const it = findFragment(card.dataset.fragment);
+      if (!it) return;
+      switchView("submit");
+      if (it.subject) $("#subjSelect").value = it.subject;
+      const parts = [it.task || it.title];
+      if (it.tips && it.tips.length) parts.push("要点：" + it.tips.join("；"));
+      $("#topicInput").value = parts.join("　");
+      $("#essayInput").focus();
+    }));
+  }
+
   /* ---------- 练习计划 ---------- */
   function initPlan() {
     const sel = $("#sessionSelect");
@@ -713,6 +764,7 @@
     initModels();
     initPast();
     initTopics();
+    initFragments();
     initPlan();
     initSubmit();
   }
