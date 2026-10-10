@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>智评系统 · 中传 783 / 887 写作批改</title>
+<link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="side-brand">
+    <img class="logo-img sm" src="assets/img/logo.png" alt="未杨" />
+    <div class="brand-text">
+      <h1>智评系统</h1>
+      <p>783 主题写作 · 887 艺术作品评论</p>
+    </div>
+  </div>
+
+  <nav class="nav" id="nav">
+    <button class="nav-item active" data-view="dashboard">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg><span class="nav-txt">总览</span>
+    </button>
+
+    <div class="nav-cap">资源库</div>
+    <button class="nav-item" data-view="theory">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span class="nav-txt">理论库</span>
+    </button>
+    <button class="nav-item" data-view="cases">
+      <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96 12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></svg><span class="nav-txt">案例库</span>
+    </button>
+    <button class="nav-item" data-view="standard">
+      <svg viewBox="0 0 24 24"><path d="M9 11.5l2.2 2.2L15.5 9"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span class="nav-txt">评分标准</span>
+    </button>
+    <button class="nav-item" data-view="models">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/></svg><span class="nav-txt">模范答题卡</span>
+    </button>
+    <button class="nav-item" data-view="past">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4"/><path d="M16 2.5v4"/></svg><span class="nav-txt">往年练习</span>
+    </button>
+    <button class="nav-item" data-view="materials">
+      <svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5-8 4.5z"/><path d="M4 12.5 12 17l8-4.5"/><path d="M4 16.5 12 21l8-4.5"/></svg><span class="nav-txt">材料库</span>
+    </button>
+    <button class="nav-item" data-view="topics">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 2.5v4"/><path d="M16 2.5v4"/><path d="M8.5 14.5h7"/></svg><span class="nav-txt">本月题目库</span>
+    </button>
+
+    <div class="nav-cap">写作训练</div>
+    <button class="nav-item" data-view="plan">
+      <svg viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4.2 6l1.3 1.3L8 4.8"/><path d="M4.2 12l1.3 1.3L8 10.8"/><path d="M4.2 18l1.3 1.3L8 16.8"/></svg><span class="nav-txt">练习计划</span>
+    </button>
+    <button class="nav-item" data-view="submit">
+      <svg viewBox="0 0 24 24"><path d="M12 20V5"/><path d="M5 11.5 12 4.5l7 7"/></svg><span class="nav-txt">提交批改</span>
+    </button>
+    <button class="nav-item" data-view="history">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.2V12l3.2 2"/></svg><span class="nav-txt">批改记录</span>
+    </button>
+  </nav>
+
+  <div class="side-foot">批改记录保存在本机浏览器</div>
+</aside>
+
+<!-- 侧边栏折叠开关（独立于 aside，避免 backdrop-filter 影响 fixed 定位） -->
+<button class="side-toggle" id="sideToggle" aria-label="收起侧边栏">
+  <svg viewBox="0 0 24 24"><path d="M14.5 6 8.5 12l6 6"/></svg>
+</button>
+
+<main id="app">
+
+  <!-- ============ 总览 ============ -->
+  <section class="view active" id="view-dashboard">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="kicker">未杨 · 智评系统</div>
+        <h2 id="dashHello">你好</h2>
+        <p id="dashSub">用理论库立骨、用案例库填肉、用模范答题卡学结构，提交作业后系统自动按理论运用与论证逻辑批改。</p>
+        <button class="btn primary" data-goto="submit">立即提交一篇作业</button>
+      </div>
+      <img class="hero-logo" src="assets/img/hero-logo.jpg" alt="未杨">
+    </div>
+
+    <div class="kpi-row" id="kpiRow"></div>
+
+    <div class="grid-dash">
+      <div class="panel">
+        <h3 class="panel-title">我的改进问题</h3>
+        <div id="weakPanel"></div>
+      </div>
+      <div class="panel">
+        <h3 class="panel-title">批改维度与配分</h3>
+        <div id="rubricPreview"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3 class="panel-title">系统怎么用</h3>
+      <ol class="steps">
+        <li><b>读理论库</b>　选定科目，按类别浏览传播学、社会学、艺术理论条目，掌握每条理论的出处、核心观点与考场用法。</li>
+        <li><b>看案例库</b>　找到与理论互证的现实案例，学"理论—案例—结论"的三段式论证。</li>
+        <li><b>拆模范答题卡</b>　逐段看高分卷的开头、分论点、论证、结尾是怎么写的。</li>
+        <li><b>提交作业</b>　粘贴你的文章，系统检测理论密度、案例密度、结构完整度并出批改报告。</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 理论库 ============ -->
+  <section class="view" id="view-theory">
+    <div class="view-head">
+      <div>
+        <h2>理论库</h2>
+        <p class="muted">共 <span id="theoryCount">0</span> 条理论，点击卡片查看完整解析</p>
+      </div>
+      <div class="filters">
+        <input type="search" id="theorySearch" placeholder="搜索理论名称 / 关键词 / 学者…" />
+        <select id="theorySubject">
+          <option value="all">全部科目</option>
+          <option value="783">783 主题写作</option>
+          <option value="887">887 艺术作品评论</option>
+        </select>
+        <select id="theoryCategory"><option value="all">全部类别</option></select>
+      </div>
+    </div>
+    <div class="card-grid" id="theoryList"></div>
+  </section>
+
+  <!-- ============ 案例库 ============ -->
+  <section class="view" id="view-cases">
+    <div class="view-head">
+      <div>
+        <h2>案例库</h2>
+        <p class="muted">共 <span id="caseCount">0</span> 个案例，标注了可对接的理论</p>
+      </div>
+      <div class="filters">
+        <input type="search" id="caseSearch" placeholder="搜索案例名称 / 关键词…" />
+        <select id="caseSubject">
+          <option value="all">全部科目</option>
+          <option value="783">783 主题写作</option>
+          <option value="887">887 艺术作品评论</option>
+        </select>
+        <select id="caseCategory"><option value="all">全部类别</option></select>
+      </div>
+    </div>
+    <div class="card-grid" id="caseList"></div>
+  </section>
+
+  <!-- ============ 评分标准 ============ -->
+  <section class="view" id="view-standard">
+    <div class="view-head">
+      <div>
+        <h2>评分标准</h2>
+        <p class="muted">什么样算一篇好的主题写作 / 艺术作品评论</p>
+      </div>
+    </div>
+    <div id="standardView"></div>
+  </section>
+
+  <!-- ============ 模范答题卡 ============ -->
+  <section class="view" id="view-models">
+    <div class="view-head">
+      <div>
+        <h2>模范答题卡</h2>
+        <p class="muted">逐段拆解高分卷：左边看原文，右边看批注</p>
+      </div>
+      <div class="filters">
+        <select id="modelSubject">
+          <option value="all">全部科目</option>
+          <option value="783">783 主题写作</option>
+          <option value="887">887 艺术作品评论</option>
+        </select>
+      </div>
+    </div>
+    <div id="modelList"></div>
+  </section>
+
+  <!-- ============ 往年练习 ============ -->
+  <section class="view" id="view-past">
+    <div class="view-head">
+      <div>
+        <h2>往年练习</h2>
+        <p class="muted">共 <span id="pastCount">0</span> 道题目，点击任一题目可带入「提交批改」重练</p>
+      </div>
+    </div>
+    <div id="pastView"></div>
+  </section>
+
+  <!-- ============ 材料库 ============ -->
+  <section class="view" id="view-materials">
+    <div class="view-head">
+      <div>
+        <h2>材料库</h2>
+        <p class="muted">共 <span id="materialCount">0</span> 条素材，涵盖数据、事件、政策与观点，点击查看用法</p>
+      </div>
+      <div class="filters">
+        <input type="search" id="materialSearch" placeholder="搜索材料标题 / 来源 / 关键词…" />
+        <select id="materialSubject">
+          <option value="all">全部科目</option>
+          <option value="783">783 主题写作</option>
+          <option value="887">887 艺术作品评论</option>
+        </select>
+        <select id="materialCategory"><option value="all">全部类别</option></select>
+      </div>
+    </div>
+    <div class="card-grid" id="materialList"></div>
+  </section>
+
+  <!-- ============ 本月题目库 ============ -->
+  <section class="view" id="view-topics">
+    <div class="view-head">
+      <div>
+        <h2>本月题目库</h2>
+        <p class="muted">共 <span id="topicLibCount">0</span> 道题目，按月组织，点击可带入「提交批改」</p>
+      </div>
+    </div>
+    <div id="topicLibView"></div>
+  </section>
+
+  <!-- ============ 练习计划 ============ -->
+  <section class="view" id="view-plan">
+    <div class="view-head">
+      <div>
+        <h2>练习计划</h2>
+        <p class="muted">4—11 月每月一次练习，加三次模拟考试，逐项推进</p>
+      </div>
+    </div>
+    <div id="planView"></div>
+  </section>
+
+  <!-- ============ 提交批改 ============ -->
+  <section class="view" id="view-submit">
+    <div class="view-head">
+      <div>
+        <h2>提交批改</h2>
+        <p class="muted">粘贴你的文章，系统按理论运用、案例运用、结构逻辑等维度自动批改</p>
+      </div>
+    </div>
+
+    <div class="submit-layout">
+      <div class="panel">
+        <div class="form-row">
+          <label>科目</label>
+          <select id="subjSelect">
+            <option value="783">783 主题写作</option>
+            <option value="887">887 艺术作品评论</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>练习归属</label>
+          <select id="sessionSelect"></select>
+        </div>
+        <div class="form-row">
+          <label>题目 / 材料</label>
+          <input type="text" id="topicInput" placeholder="如：以“技术与人”为话题，自选角度写作" />
+        </div>
+        <div class="form-row">
+          <label>正文</label>
+          <textarea id="essayInput" rows="16" placeholder="在此粘贴你的文章正文（建议 1000 字以上）…"></textarea>
+          <div class="counter"><span id="charCount">0</span> 字</div>
+        </div>
+        <div class="form-actions">
+          <button class="btn primary" id="gradeBtn">开始批改</button>
+          <button class="btn ghost" id="demoBtn">填入示例文章</button>
+          <button class="btn ghost" id="clearBtn">清空</button>
+        </div>
+      </div>
+
+      <div class="panel report-panel" id="reportPanel">
+        <div class="empty-hint">批改报告会显示在这里</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 批改记录 ============ -->
+  <section class="view" id="view-history">
+    <div class="view-head">
+      <div>
+        <h2>批改记录</h2>
+        <p class="muted">批改记录保存在本机浏览器中，随时可以查看和删除</p>
+      </div>
+      <button class="btn ghost" id="clearHistoryBtn">清空记录</button>
+    </div>
+    <div id="historyList"></div>
+  </section>
+
+</main>
+
+<!-- 弹窗 -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/grader.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
